@@ -32,6 +32,15 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editText2"
+                android:hint="Введите заголовок"
+                android:maxLength="20" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/editText"

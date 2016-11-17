@@ -14,6 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "noteDB";
     public static final String TABLE_NOTES = "notes";
     public static final String KEY_ID = "_id";
+    public static final String KEY_HEAD = "head";
     public static final String KEY_TEXT = "text";
     public static final String KEY_PRIORITY = "priority";
     public static final String KEY_POSITION_LONGITUDE = "longitude";
@@ -28,7 +29,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NOTES + "(" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_TEXT + " TEXT, " + KEY_PRIORITY + " TEXT, " + KEY_POSITION_LONGITUDE + " TEXT, " + KEY_POSITION_LATITUDE + " TEXT, " + KEY_PHOTO + " TEXT);");
+        db.execSQL("CREATE TABLE " + TABLE_NOTES + "(" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_HEAD + " TEXT, " +
+                KEY_TEXT + " TEXT, " + KEY_PRIORITY + " TEXT, " + KEY_POSITION_LONGITUDE + " TEXT, " +
+                KEY_POSITION_LATITUDE + " TEXT, " + KEY_PHOTO + " TEXT);");
     }
 
     @Override
