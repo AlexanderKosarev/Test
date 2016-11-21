@@ -15,14 +15,22 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout linearLayout;
     DBHelper dbHelper;
+    ListView listView;
+    String[] heads;
+    ArrayAdapter<String> adapter;
 
 
     @Override
@@ -31,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        linearLayout = (LinearLayout) findViewById(R.id.lLayout);
+        //linearLayout = (LinearLayout) findViewById(R.id.lLayout);
+        listView = (ListView) findViewById(R.id.LView);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
 
         dbHelper = new DBHelper(this);
 
@@ -48,22 +59,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPostResume() {
-        linearLayout.removeAllViews();
+        int i = 0;
+        //linearLayout.removeAllViews();
         SQLiteDatabase database = dbHelper.getWritableDatabase();
+        heads = new String[4024];
         Cursor cursor = database.query(DBHelper.TABLE_NOTES, null, null, null, null, null, null);
         if(cursor.moveToFirst()) {
-            int textIndex = cursor.getColumnIndex(DBHelper.KEY_TEXT);
+            int textIndex = cursor.getColumnIndex(DBHelper.KEY_HEAD);
             do{
                 Log.d("mLog", "Text = " + cursor.getString(textIndex));
-                LinearLayout.LayoutParams layoutParams = new AppBarLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.gravity = Gravity.LEFT;
-                TextView textView = new TextView(this);
-                textView.setText(cursor.getString(textIndex));
-                linearLayout.addView(textView,layoutParams);
+//                LinearLayout.LayoutParams layoutParams = new AppBarLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                layoutParams.gravity = Gravity.LEFT;
+//                TextView textView = new TextView(this);
+//                textView.setText(cursor.getString(textIndex));
+//                linearLayout.addView(textView,layoutParams);
+                heads[i] = cursor.getString(textIndex);
+                i++;
             }while (cursor.moveToNext());
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, heads);
+            listView.setAdapter(adapter);
         }else Log.d("mLog", "0 rows");
         cursor.close();
-        //dbHelper.close();
+        dbHelper.close();
 
 
         super.onPostResume();
@@ -77,9 +94,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
+
+
         switch (id){
             case R.id.action_add:
                 Intent intent = new Intent(this, NoteAdd.class);

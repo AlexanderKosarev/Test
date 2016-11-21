@@ -25,7 +25,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class NoteAdd extends AppCompatActivity {
 
     Button btnCreate, btnCancel;
-    EditText editText;
+    EditText editText, head;
     DBHelper dbHelper;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -40,7 +40,7 @@ public class NoteAdd extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         editText = (EditText) findViewById(R.id.editText);
-
+        head = (EditText) findViewById(R.id.editText2);
 
         dbHelper = new DBHelper(this);
 
@@ -61,8 +61,10 @@ public class NoteAdd extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String text = editText.getText().toString();
+                final String headText = head.getText().toString();
                 SQLiteDatabase database = dbHelper.getWritableDatabase();
                 contentValues.put(DBHelper.KEY_TEXT, text);
+                contentValues.put(DBHelper.KEY_HEAD, headText);
                 database.insert(DBHelper.TABLE_NOTES, null, contentValues);
                 dbHelper.close();
                 Toast.makeText(NoteAdd.this, getString(R.string.Ok), Toast.LENGTH_LONG).show();

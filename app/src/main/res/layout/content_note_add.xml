@@ -23,12 +23,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView"
-                android:visibility="invisible" />
-
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,7 +30,14 @@
                 android:ems="10"
                 android:id="@+id/editText2"
                 android:hint="Введите заголовок"
-                android:maxLength="20" />
+                android:maxLength="20"
+                android:layout_marginBottom="5dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:visibility="invisible" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -67,7 +68,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.16"
             />
 
         <Button

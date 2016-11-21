@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "noteDB";
     public static final String TABLE_NOTES = "notes";
     public static final String KEY_ID = "_id";
@@ -21,10 +21,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_POSITION_LATITUDE = "latitude";
     public static final String KEY_PHOTO = "photo";
 
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
-
     }
 
     @Override
@@ -36,10 +35,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS"+TABLE_NOTES);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NOTES);
 
         onCreate(db);
     }
+
+
 }
 
 
